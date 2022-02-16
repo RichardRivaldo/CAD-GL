@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8" />
+        <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+        <title>2D Web-Based CAD-GL</title>
+        <link rel="preconnect" href="https://fonts.googleapis.com" />
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+        <link
+            href="https://fonts.googleapis.com/css2?family=Poppins&display=swap"
+            rel="stylesheet"
+        />
+        <link rel="stylesheet" href="./style.css" />
+    </head>
+    <body>
+        <div class="header">
+            <h1>CAD-GL | 2D Web-Based Computer Aided Design with WebGL</h1>
+        </div>
+        <div class="container">
+            <div class="canvas-container">
+                <canvas id="canvas"></canvas>
+            </div>
+            <div class="controller-container">
+                <h2>Controllers</h2>
+                <hr />
+                <div class="controller">
+                    <h6>Input Modes</h6>
+                    <select id="input-modes">
+                        <option value="draw">Draw</option>
+                        <option value="resize">Resize</option>
+                        <option value="fill-color">Fill Color</option>
+                        <option value="move-vertex">Move Vertex</option>
+                    </select>
+                </div>
+                <div class="controller">
+                    <h6>Shape Types</h6>
+                    <select id="shape-types">
+                        <option value="line">Line</option>
+                        <option value="square">Square</option>
+                        <option value="rectangle">Rectangle</option>
+                        <option value="polygon">Polygon</option>
+                    </select>
+                </div>
+                <div class="controller">
+                    <h6>Shape Colors</h6>
+                    <select id="shape-colors">
+                        <option value="black">Black</option>
+                        <option value="red">Red</option>
+                        <option value="green">Green</option>
+                        <option value="blue">Blue</option>
+                        <option value="cyan">Cyan</option>
+                        <option value="magenta">Magenta</option>
+                        <option value="yellow">Green</option>
+                    </select>
+                </div>
+                <div class="controller">
+                    <h6>Size Scaler</h6>
+                    <input type="range" name="size-scaler" id="size-scaler" />
+                </div>
+                <div class="controller">
+                    <h6>Polygon Edges</h6>
+                    <input type="text" id="polygon-edges"></input>
+                </div>
+            </div>
+        </div>
+    </body>
+</html>

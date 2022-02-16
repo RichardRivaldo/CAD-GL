@@ -1,0 +1,39 @@
+* {
+    margin: 0;
+    padding: 0;
+    font-family: "Poppins", sans-serif;
+    box-sizing: border-box;
+}
+
+.header {
+    margin-left: 10px;
+    margin-bottom: 10px;
+}
+
+.container {
+    display: flex;
+}
+
+hr {
+    margin-bottom: 30px;
+}
+
+canvas {
+    width: 75vw;
+    height: 90vh;
+    border: 2px solid gray;
+    border-radius: 5px;
+    margin-left: 10px;
+}
+
+.controller-container {
+    border: 2px solid gray;
+    border-radius: 5px;
+    width: 23.5vw;
+    height: 90vh;
+    padding: 10px 10px;
+}
+
+.controller {
+    margin-bottom: 20px;
+}
