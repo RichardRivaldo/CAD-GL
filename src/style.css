@@ -19,8 +19,6 @@ hr {
 }
 
 canvas {
-    width: 75vw;
-    height: 90vh;
     border: 2px solid gray;
     border-radius: 5px;
     margin-left: 10px;
