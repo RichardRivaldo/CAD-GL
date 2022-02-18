@@ -24,3 +24,30 @@ const getNearestObject = (x, y, objects) => {
 
     return nearestObject.index;
 };
+
+const getElementValue = (element) => {
+    return element.value;
+};
+
+const getOriginPoint = (canvas) => {
+    return {
+        xOrigin: 512,
+        yOrigin: 285,
+    };
+};
+
+const getCursorPosition = (event) => {
+    const clientRect = canvas.getBoundingClientRect();
+
+    const cursorX = event.clientX - clientRect.left;
+    const cursorY = event.clientY - clientRect.top;
+
+    return {
+        x: (cursorX - xOrigin) / xOrigin,
+        y: ((cursorY > yOrigin ? -1 : 1) * Math.abs(cursorY - yOrigin)) / yOrigin,
+    };
+};
+
+const setEventListener = (element, eventType, cb) => {
+    element.addEventListener(eventType, cb);
+};
