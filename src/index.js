@@ -16,7 +16,9 @@ let polygonEdges = parseInt(getElementValue(polygonEdgesInput));
 
 let clicks = 0;
 let vertices = [];
+let isClicked = false;
 let selectedObject = 0;
+let selectedVertex = 0;
 
 const allObjects = [];
 const { xOrigin, yOrigin } = getOriginPoint(canvas);
@@ -109,6 +111,15 @@ const main = () => {
         sizeScaler.value = 100;
     };
 
+    const renderMovingObject = (event) => {
+        if (isClicked) {
+            const cursorPosition = getCursorPosition(event);
+            allObjects[selectedObject].vertices[selectedVertex] = cursorPosition.x;
+            allObjects[selectedObject].vertices[selectedVertex + 1] = cursorPosition.y;
+            render(gl, allObjects);
+        }
+    };
+
     const handleDraw = (gl, event) => {
         let isNotLine =
             shapeType === "square" ||
@@ -150,6 +161,30 @@ const main = () => {
         selectedObject = getNearestObject(cursorPosition.x, cursorPosition.y, allObjects);
     };
 
+    const handleMovePoint = (event) => {
+        const cursorPosition = getCursorPosition(event);
+        if (!isClicked) {
+            selectedObject = getNearestObject(
+                cursorPosition.x,
+                cursorPosition.y,
+                allObjects
+            );
+            selectedVertex = getNearestVertex(
+                cursorPosition.x,
+                cursorPosition.y,
+                allObjects[selectedObject]
+            );
+
+            isClicked = true;
+        } else {
+            allObjects[selectedObject].vertices[selectedVertex] = cursorPosition.x;
+            allObjects[selectedObject].vertices[selectedVertex + 1] = cursorPosition.y;
+
+            render(gl, allObjects);
+            isClicked = false;
+        }
+    };
+
     const canvasHandler = (event) => {
         applyChange();
         if (inputMode === "draw") {
@@ -158,13 +193,16 @@ const main = () => {
             handleChangeColor(event);
         } else if (inputMode === "resize") {
             handleChangeSize(event);
+        } else if (inputMode === "move-vertex") {
+            handleMovePoint(event);
         }
     };
 
     // Setup HTML Elements
+    setEventListener(sizeScaler, "change", resize);
     setEventListener(changeButton, "click", applyChange);
     setEventListener(canvas, "mousedown", canvasHandler);
-    setEventListener(sizeScaler, "change", resize);
+    setEventListener(canvas, "mousemove", renderMovingObject);
 };
 
 main();

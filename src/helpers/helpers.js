@@ -25,6 +25,19 @@ const getNearestObject = (x, y, objects) => {
     return nearestObject.index;
 };
 
+const getNearestVertex = (x, y, object) => {
+    let minDist = 99999;
+    let minIdx;
+    for (let i = 0; i < object.vertices.length; i += 3) {
+        let dist = calculateDistance(x, y, object.vertices[i], object.vertices[i + 1]);
+        if (dist < minDist) {
+            minDist = dist;
+            minIdx = i;
+        }
+    }
+    return minIdx;
+};
+
 const getElementValue = (element) => {
     return element.value;
 };

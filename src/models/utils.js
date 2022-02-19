@@ -79,7 +79,6 @@ const formGeometry = (objects) => {
     objects.forEach((object) => {
         // Filled static color for each vertex of the object (no interpolation)
         for (let i = 0; i < object.vertexCount; i++) {
-            console.log(object.color);
             colors = colors.concat(colorCodes[object.color]);
         }
 
