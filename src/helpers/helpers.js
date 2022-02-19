@@ -42,7 +42,7 @@ const getElementValue = (element) => {
     return element.value;
 };
 
-const getOriginPoint = (canvas) => {
+const getOriginPoint = () => {
     return {
         xOrigin: 512,
         yOrigin: 285,

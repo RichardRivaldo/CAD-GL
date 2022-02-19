@@ -6,7 +6,8 @@ const shapeTypesSelector = document.querySelector("#shape-types");
 const shapeColorsSelector = document.querySelector("#shape-colors");
 const sizeScaler = document.querySelector("#size-scaler");
 const polygonEdgesInput = document.querySelector("#polygon-edges");
-const changeButton = document.querySelector("#change-btn");
+const loadButton = document.querySelector("#load-btn");
+const saveButton = document.querySelector("#save-btn");
 
 let inputMode = getElementValue(inputModesSelector);
 let shapeType = getElementValue(shapeTypesSelector);
@@ -21,7 +22,7 @@ let selectedObject = 0;
 let selectedVertex = 0;
 
 const allObjects = [];
-const { xOrigin, yOrigin } = getOriginPoint(canvas);
+const { xOrigin, yOrigin } = getOriginPoint();
 
 const applyChange = () => {
     // Update value
@@ -200,7 +201,6 @@ const main = () => {
 
     // Setup HTML Elements
     setEventListener(sizeScaler, "change", resize);
-    setEventListener(changeButton, "click", applyChange);
     setEventListener(canvas, "mousedown", canvasHandler);
     setEventListener(canvas, "mousemove", renderMovingObject);
 };
