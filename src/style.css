@@ -45,3 +45,7 @@ button {
     font-weight: 700;
     cursor: pointer;
 }
+
+span {
+    font-size: 14px;
+}
