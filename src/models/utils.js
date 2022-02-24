@@ -108,9 +108,14 @@ const renderObjects = (gl, objects) => {
     objects.forEach((object) => {
         // Determine the drawing method for each type of object
         const shape = object.shape;
-        const isPlane =
-            shape === "polygon" || shape === "square" || shape === "rectangle";
-        primitiveType = isPlane ? gl.TRIANGLES : gl.LINES;
+
+        if (shape === "line") {
+            primitiveType = gl.LINES;
+        } else if (shape === "polygon") {
+            primitiveType = gl.TRIANGLE_FAN;
+        } else {
+            primitiveType = gl.TRIANGLE_STRIP;
+        }
 
         // Draw the object and move the offset
         const vertexCount = object.vertexCount;

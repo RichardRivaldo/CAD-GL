@@ -43,6 +43,9 @@ const applyChange = () => {
         }
         polygonEdgesInput.disabled = true;
     } else {
+        polygonEdgesInput.min = 3;
+        if (polygonEdgesInput.value < 3)
+            polygonEdgesInput.value = 3;
         polygonEdgesInput.disabled = false;
     }
 };
@@ -106,6 +109,27 @@ const main = () => {
             allObjects[selectedObject].vertices[3] = x0 + size * (x1 - x0);
             allObjects[selectedObject].vertices[4] = y0 + size * (y1 - y0);
         }
+        if (allObjects[selectedObject].shape === "polygon") {
+            // Find center point of object
+            const currentVertices = allObjects[selectedObject].vertices;
+            var xmax = -1;
+            var ymax = -1;
+            var xmin = 1;
+            var ymin = 1;
+            for (i = 0; i < currentVertices.length; i+=3) {
+                if (currentVertices[i] > xmax) xmax = currentVertices[i];
+                else if (currentVertices[i] < xmin) xmin = currentVertices[i];
+                if (currentVertices[i+1] > ymax) ymax = currentVertices[i+1];
+                else if (currentVertices[i+1] < ymin) ymin = currentVertices[i+1];
+            }
+            xmid = xmin + 0.5 * (xmax - xmin);
+            ymid = xmin + 0.5 * (xmax - xmin);
+            // Scale each vertice according to center point
+            for (i = 0; i < currentVertices.length; i+=3) {
+                allObjects[selectedObject].vertices[i] = xmid + size * (currentVertices[i] - xmid);
+                allObjects[selectedObject].vertices[i+1] = ymid + size * (currentVertices[i+1] - ymid);
+            }
+        }
 
         // Render and reset input value
         render(gl, allObjects);
@@ -122,21 +146,17 @@ const main = () => {
     };
 
     const handleDraw = (gl, event) => {
-        let isNotLine =
-            shapeType === "square" ||
-            shapeType === "rectangle" ||
-            shapeType === "polygon";
-        let needMoreVertex = !(
-            clicks === polygonEdges - 1 ||
-            (isNotLine && clicks === 1)
+        let enoughVertex = (
+            shapeType === "polygon" && clicks === polygonEdges - 1 ||
+            shapeType !== "polygon" && clicks === 1
         );
 
-        if (needMoreVertex) {
+        if (!enoughVertex) {
             addCurrentVertex(event);
             clicks += 1;
         } else {
-            if (isNotLine) {
-                // Change the event here
+            if (shapeType === "square" || shapeType === "rectangle") {
+                // Adjustments
             } else {
                 addCurrentVertex(event);
             }
