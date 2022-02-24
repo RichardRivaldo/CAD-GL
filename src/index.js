@@ -110,6 +110,8 @@ const main = () => {
             allObjects[selectedObject].vertices[4] = y0 + size * (y1 - y0);
         }
         if (allObjects[selectedObject].shape === "polygon") {
+            console.log("Size", size);
+            console.log("Original vertices:", allObjects[selectedObject].vertices);
             // Find center point of object
             const currentVertices = allObjects[selectedObject].vertices;
             var xmax = -1;
@@ -118,17 +120,20 @@ const main = () => {
             var ymin = 1;
             for (i = 0; i < currentVertices.length; i+=3) {
                 if (currentVertices[i] > xmax) xmax = currentVertices[i];
-                else if (currentVertices[i] < xmin) xmin = currentVertices[i];
+                if (currentVertices[i] < xmin) xmin = currentVertices[i];
                 if (currentVertices[i+1] > ymax) ymax = currentVertices[i+1];
-                else if (currentVertices[i+1] < ymin) ymin = currentVertices[i+1];
+                if (currentVertices[i+1] < ymin) ymin = currentVertices[i+1];
             }
+            console.log("Xmax Ymax Xmin Ymin:", xmax, ymax, xmin, ymin);
             xmid = xmin + 0.5 * (xmax - xmin);
             ymid = xmin + 0.5 * (xmax - xmin);
+            console.log("Xmid Ymid:", xmid, ymid);
             // Scale each vertice according to center point
             for (i = 0; i < currentVertices.length; i+=3) {
                 allObjects[selectedObject].vertices[i] = xmid + size * (currentVertices[i] - xmid);
                 allObjects[selectedObject].vertices[i+1] = ymid + size * (currentVertices[i+1] - ymid);
             }
+            console.log("Scaled vertices:", allObjects[selectedObject].vertices);
         }
 
         // Render and reset input value
@@ -219,10 +224,36 @@ const main = () => {
         }
     };
 
+    const saveData = () => {
+        console.log("Saving data...", JSON.stringify(allObjects));
+    
+        const a = document.createElement("a");
+        const file = new Blob([JSON.stringify(allObjects)], { type: "json" });
+        a.href = URL.createObjectURL(file);
+        a.download = "data.json";
+        a.click();
+        URL.revokeObjectURL(a.href);
+    };
+    
+    const loadData = (event) => {
+        const file = event.target.files[0];
+        var reader = new FileReader();
+        reader.addEventListener("load", function (event) {
+          let data = event.target.result;
+          data = JSON.parse(data);
+          allObjects.push(...data);
+          console.log(allObjects);
+          render(gl, allObjects);
+        });
+        reader.readAsBinaryString(file);
+    };
+
     // Setup HTML Elements
     setEventListener(sizeScaler, "change", resize);
     setEventListener(canvas, "mousedown", canvasHandler);
     setEventListener(canvas, "mousemove", renderMovingObject);
+    setEventListener(saveButton, "mousedown", saveData);
+    setEventListener(loadButton, "change", loadData);
 };
 
 main();

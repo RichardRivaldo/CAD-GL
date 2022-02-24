@@ -62,10 +62,16 @@
                 </div>
                 <div class="controller">
                     <h6>Polygon Edges</h6>
-                    <input type="text" id="polygon-edges" value="1"></input>
+                    <input type="number" id="polygon-edges" value="1" disabled="true"></input>
                 </div>
-                <button id="load-btn">Load Data</button>
                 <button id="save-btn">Save Data</button>
+                <h6><br>Load Data</h6>
+                <input
+                    class="form-control form-control-sm"
+                    type="file"
+                    id="load-btn"
+                    accept=".json,application/json"
+                />
             </div>
         </div>
         <script src="./data/data.js"></script>
