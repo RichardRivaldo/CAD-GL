@@ -28,7 +28,7 @@ canvas {
     border: 2px solid gray;
     border-radius: 5px;
     width: 28vw;
-    height: 100vh;
+    height: 75vh;
     padding: 10px 10px;
 }
 
@@ -50,11 +50,11 @@ span {
     font-size: 14px;
 }
 
-input[type=file]::-webkit-file-upload-button {
+input[type="file"]::-webkit-file-upload-button {
     border-radius: 4px;
     width: 10rem;
     height: 2rem;
-    font-family: 'Poppins', sans-serif;
+    font-family: "Poppins", sans-serif;
     color: blue;
     background-color: rgb(131, 247, 127);
     font-weight: 700;
