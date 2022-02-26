@@ -90,6 +90,7 @@ const main = () => {
             cursorPosition.y,
             allObjects
         );
+        console.log(allObjects[nearestObject])
         allObjects[nearestObject].color = shapeColor;
     };
 
@@ -130,6 +131,48 @@ const main = () => {
                 allObjects[selectedObject].vertices[i+1] = ymid + size * (currentVertices[i+1] - ymid);
             }
         }
+        if (allObjects[selectedObject].shape === "square") {
+            // Find center point of object
+            const currentVertices = allObjects[selectedObject].vertices;
+            var xmax = -1;
+            var ymax = -1;
+            var xmin = 1;
+            var ymin = 1;
+            for (i = 0; i < currentVertices.length; i+=3) {
+                if (currentVertices[i] > xmax) xmax = currentVertices[i];
+                if (currentVertices[i] < xmin) xmin = currentVertices[i];
+                if (currentVertices[i+1] > ymax) ymax = currentVertices[i+1];
+                if (currentVertices[i+1] < ymin) ymin = currentVertices[i+1];
+            }
+            xmid = xmin + 0.5 * (xmax - xmin);
+            ymid = xmin + 0.5 * (xmax - xmin);
+            // Scale each vertice according to center point
+            for (i = 0; i < currentVertices.length; i+=3) {
+                allObjects[selectedObject].vertices[i] = xmid + size * (currentVertices[i] - xmid);
+                allObjects[selectedObject].vertices[i+1] = ymid + size * (currentVertices[i+1] - ymid);
+            }
+        }
+        if (allObjects[selectedObject].shape === "rectangle") {
+            // Find center point of object
+            const currentVertices = allObjects[selectedObject].vertices;
+            var xmax = -1;
+            var ymax = -1;
+            var xmin = 1;
+            var ymin = 1;
+            for (i = 0; i < currentVertices.length; i+=3) {
+                if (currentVertices[i] > xmax) xmax = currentVertices[i];
+                if (currentVertices[i] < xmin) xmin = currentVertices[i];
+                if (currentVertices[i+1] > ymax) ymax = currentVertices[i+1];
+                if (currentVertices[i+1] < ymin) ymin = currentVertices[i+1];
+            }
+            xmid = xmin + 0.5 * (xmax - xmin);
+            ymid = xmin + 0.5 * (xmax - xmin);
+            // Scale each vertice according to center point
+            for (i = 0; i < currentVertices.length; i+=3) {
+                allObjects[selectedObject].vertices[i] = xmid + size * (currentVertices[i] - xmid);
+                allObjects[selectedObject].vertices[i+1] = ymid + size * (currentVertices[i+1] - ymid);
+            }
+        }
 
         // Render and reset input value
         render(gl, allObjects);
@@ -144,12 +187,61 @@ const main = () => {
             render(gl, allObjects);
         }
     };
+    
 
     const handleDraw = (gl, event) => {
         let enoughVertex = (
             shapeType === "polygon" && clicks === polygonEdges - 1 ||
             shapeType !== "polygon" && clicks === 1
         );
+
+        let squareVertex  = (
+            shapeType === "square" && clicks === 0 )
+            let rectangleVertex  = (
+                shapeType === "rectangle" && clicks === 0 )
+        
+        if (squareVertex){
+                //config // console.log(gl)
+                // console.log(event)
+                // console.log(vertices)
+
+                let currPos = getCursorPosition(event, canvas);
+                let x1 = currPos.x; let y1 = currPos.y;
+                size = getElementValue(sizeScaler) / 100;
+                    vertices.push(
+                        x1+size*0.53, y1, 0,
+                        x1, y1,0,
+                        x1+size*0.53, y1-size,0,
+                        x1, y1-size,0
+                    );
+
+                    for (let i = 0; i < 15; i++) {
+                        const newObject = createObject(shapeType, polygonEdges, vertices, shapeColor);
+                        allObjects.push(newObject);
+                      }
+             }
+
+             if (rectangleVertex){
+                //config // console.log(gl)
+                // console.log(event)
+                // console.log(vertices)
+
+                let currPos = getCursorPosition(event, canvas);
+                let x1 = currPos.x; let y1 = currPos.y;
+                size = getElementValue(sizeScaler) / 100;
+                    vertices.push(
+                        x1+size, y1, 0,
+                        x1, y1,0,
+                        x1+size, y1-size,0,
+                        x1, y1-size,0
+                    );
+
+                    // for (let i = 0; i < 15; i++) {
+                        const newObject = createObject(shapeType, polygonEdges, vertices, shapeColor);
+                        allObjects.push(newObject);
+                    //   }
+             }
+        
 
         if (!enoughVertex) {
             addCurrentVertex(event);
@@ -170,6 +262,7 @@ const main = () => {
     };
 
     const handleChangeColor = (event) => {
+        // resetInput();
         const cursorPosition = getCursorPosition(event);
         changeColor(cursorPosition);
 
