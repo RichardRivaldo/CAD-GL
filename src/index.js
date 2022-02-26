@@ -196,9 +196,9 @@ const main = () => {
         );
 
         let squareVertex  = (
-            shapeType === "square" && clicks === 0 )
+            shapeType === "square" && clicks === 1 )
             let rectangleVertex  = (
-                shapeType === "rectangle" && clicks === 0 )
+                shapeType === "rectangle" && clicks === 1 )
         
         if (squareVertex){
                 //config // console.log(gl)
@@ -208,41 +208,44 @@ const main = () => {
                 let currPos = getCursorPosition(event, canvas);
                 let x1 = currPos.x; let y1 = currPos.y;
                 size = getElementValue(sizeScaler) / 100;
-                    vertices.push(
+                    vertices = [
                         x1+size*0.53, y1, 0,
                         x1, y1,0,
                         x1+size*0.53, y1-size,0,
                         x1, y1-size,0
-                    );
+                    ]
 
-                    for (let i = 0; i < 15; i++) {
-                        const newObject = createObject(shapeType, polygonEdges, vertices, shapeColor);
-                        allObjects.push(newObject);
-                      }
+                    // for (let i = 0; i < 15; i++) {
+                    //     const newObject = createObject(shapeType, polygonEdges, vertices, shapeColor);
+                    //     allObjects.push(newObject);
+                    //   }
+                      console.log(vertices)
+                    //   clicks = 0
              }
 
              if (rectangleVertex){
                 //config // console.log(gl)
                 // console.log(event)
-                // console.log(vertices)
+                console.log(vertices)
 
                 let currPos = getCursorPosition(event, canvas);
                 let x1 = currPos.x; let y1 = currPos.y;
                 size = getElementValue(sizeScaler) / 100;
-                    vertices.push(
+                    vertices = [
                         x1+size, y1, 0,
                         x1, y1,0,
                         x1+size, y1-size,0,
                         x1, y1-size,0
-                    );
+                    ]
 
                     // for (let i = 0; i < 15; i++) {
-                        const newObject = createObject(shapeType, polygonEdges, vertices, shapeColor);
-                        allObjects.push(newObject);
+                    //     const newObject = createObject(shapeType, polygonEdges, vertices, shapeColor);
+                    //     allObjects.push(newObject);
                     //   }
+                      console.log(vertices)
+                    //   clicks = 0
              }
         
-
         if (!enoughVertex) {
             addCurrentVertex(event);
             clicks += 1;
@@ -255,6 +258,12 @@ const main = () => {
 
             const newObject = createObject(shapeType, polygonEdges, vertices, shapeColor);
             allObjects.push(newObject);
+            console.log(vertices)
+            console.log(newObject)
+            if (allObjects){
+                console.log(allObjects)
+            }
+           
 
             render(gl, allObjects);
             resetInput();
