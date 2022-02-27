@@ -220,7 +220,11 @@ const main = () => {
             allObjects.push(newObject);
 
             render(gl, allObjects);
+            console.log(allObjects)
+            console.log(vertices)
             resetInput();
+
+            
         }
 
         if (rectangleVertex) {
@@ -246,10 +250,12 @@ const main = () => {
             allObjects.push(newObject);
 
             render(gl, allObjects);
+            console.log(allObjects)
+            console.log(vertices)
             resetInput();
         }
 
-        if (!enoughVertex) {
+        if (!enoughVertex && !squareVertex && !rectangleVertex) {
             addCurrentVertex(event);
             clicks += 1;
         } else if (!squareVertex && !rectangleVertex) {
@@ -258,6 +264,8 @@ const main = () => {
             const newObject = createObject(shapeType, polygonEdges, vertices, shapeColor);
             allObjects.push(newObject);
             render(gl, allObjects);
+            console.log(allObjects)
+            console.log(vertices)
             resetInput();
         }
     };
