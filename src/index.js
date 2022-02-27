@@ -44,8 +44,7 @@ const applyChange = () => {
         polygonEdgesInput.disabled = true;
     } else {
         polygonEdgesInput.min = 3;
-        if (polygonEdgesInput.value < 3)
-            polygonEdgesInput.value = 3;
+        if (polygonEdgesInput.value < 3) polygonEdgesInput.value = 3;
         polygonEdgesInput.disabled = false;
     }
 };
@@ -90,7 +89,6 @@ const main = () => {
             cursorPosition.y,
             allObjects
         );
-        console.log(allObjects[nearestObject])
         allObjects[nearestObject].color = shapeColor;
     };
 
@@ -117,18 +115,20 @@ const main = () => {
             var ymax = -1;
             var xmin = 1;
             var ymin = 1;
-            for (i = 0; i < currentVertices.length; i+=3) {
+            for (i = 0; i < currentVertices.length; i += 3) {
                 if (currentVertices[i] > xmax) xmax = currentVertices[i];
                 if (currentVertices[i] < xmin) xmin = currentVertices[i];
-                if (currentVertices[i+1] > ymax) ymax = currentVertices[i+1];
-                if (currentVertices[i+1] < ymin) ymin = currentVertices[i+1];
+                if (currentVertices[i + 1] > ymax) ymax = currentVertices[i + 1];
+                if (currentVertices[i + 1] < ymin) ymin = currentVertices[i + 1];
             }
             xmid = xmin + 0.5 * (xmax - xmin);
             ymid = xmin + 0.5 * (xmax - xmin);
             // Scale each vertice according to center point
-            for (i = 0; i < currentVertices.length; i+=3) {
-                allObjects[selectedObject].vertices[i] = xmid + size * (currentVertices[i] - xmid);
-                allObjects[selectedObject].vertices[i+1] = ymid + size * (currentVertices[i+1] - ymid);
+            for (i = 0; i < currentVertices.length; i += 3) {
+                allObjects[selectedObject].vertices[i] =
+                    xmid + size * (currentVertices[i] - xmid);
+                allObjects[selectedObject].vertices[i + 1] =
+                    ymid + size * (currentVertices[i + 1] - ymid);
             }
         }
         if (allObjects[selectedObject].shape === "square") {
@@ -136,27 +136,42 @@ const main = () => {
             const currentVertices = allObjects[selectedObject].vertices;
             var x1 = currentVertices[3];
             var y1 = currentVertices[4];
-    
+
             allObjects[selectedObject].vertices = [
-                 x1+size*0.53, y1, 0, // ini tetep
-                 x1, y1,0,
-                 x1+size*0.53, y1-size,0,
-                 x1, y1-size,0
-             ]
-            
+                x1 + size * 0.53,
+                y1,
+                0, // ini tetep
+                x1,
+                y1,
+                0,
+                x1 + size * 0.53,
+                y1 - size,
+                0,
+                x1,
+                y1 - size,
+                0,
+            ];
         }
         if (allObjects[selectedObject].shape === "rectangle") {
             // Find x, y original positon
             const currentVertices = allObjects[selectedObject].vertices;
             var x1 = currentVertices[3];
             var y1 = currentVertices[4];
-    
+
             allObjects[selectedObject].vertices = [
-                 x1+size, y1, 0, // ini tetep
-                 x1, y1,0,
-                 x1+size, y1-size,0,
-                 x1, y1-size,0
-             ]
+                x1 + size,
+                y1,
+                0, // ini tetep
+                x1,
+                y1,
+                0,
+                x1 + size,
+                y1 - size,
+                0,
+                x1,
+                y1 - size,
+                0,
+            ];
         }
 
         // Render and reset input value
@@ -172,78 +187,82 @@ const main = () => {
             render(gl, allObjects);
         }
     };
-    
 
     const handleDraw = (gl, event) => {
         // render(gl, allObjects);
-        let enoughVertex = (
-            shapeType === "polygon" && clicks === polygonEdges - 1 ||
-            shapeType !== "polygon" && clicks === 1
-        );
+        let enoughVertex =
+            (shapeType === "polygon" && clicks === polygonEdges - 1) ||
+            (shapeType !== "polygon" && clicks === 1);
 
-        let squareVertex  = (
-            shapeType === "square"  )
-        let rectangleVertex  = (
-            shapeType === "rectangle" )
-        
-        if (squareVertex){
-                let currPos = getCursorPosition(event, canvas);
-                let x1 = currPos.x; let y1 = currPos.y;
-                size = getElementValue(sizeScaler) / 100;
-                    vertices = [
-                        x1+size*0.53, y1, 0,
-                        x1, y1,0,
-                        x1+size*0.53, y1-size,0,
-                        x1, y1-size,0
-                    ]
-                    const newObject = createObject(shapeType, polygonEdges, vertices, shapeColor);
-                    allObjects.push(newObject);
+        let squareVertex = shapeType === "square";
+        let rectangleVertex = shapeType === "rectangle";
 
-                    render(gl, allObjects);
-                    resetInput();
-      
-             }
+        if (squareVertex) {
+            let currPos = getCursorPosition(event, canvas);
+            let x1 = currPos.x;
+            let y1 = currPos.y;
+            size = getElementValue(sizeScaler) / 100;
+            vertices = [
+                x1 + size * 0.53,
+                y1,
+                0,
+                x1,
+                y1,
+                0,
+                x1 + size * 0.53,
+                y1 - size,
+                0,
+                x1,
+                y1 - size,
+                0,
+            ];
+            const newObject = createObject(shapeType, polygonEdges, vertices, shapeColor);
+            allObjects.push(newObject);
 
-             if ( rectangleVertex ){
+            render(gl, allObjects);
+            resetInput();
+        }
 
-                let currPos = getCursorPosition(event, canvas);
-                let x1 = currPos.x; let y1 = currPos.y;
-                size = getElementValue(sizeScaler) / 100;
-                    vertices = [
-                        x1+size, y1, 0,
-                        x1, y1,0,
-                        x1+size, y1-size,0,
-                        x1, y1-size,0
-                    ]
-                    const newObject = createObject(shapeType, polygonEdges, vertices, shapeColor);
-                    allObjects.push(newObject);
+        if (rectangleVertex) {
+            let currPos = getCursorPosition(event, canvas);
+            let x1 = currPos.x;
+            let y1 = currPos.y;
+            size = getElementValue(sizeScaler) / 100;
+            vertices = [
+                x1 + size,
+                y1,
+                0,
+                x1,
+                y1,
+                0,
+                x1 + size,
+                y1 - size,
+                0,
+                x1,
+                y1 - size,
+                0,
+            ];
+            const newObject = createObject(shapeType, polygonEdges, vertices, shapeColor);
+            allObjects.push(newObject);
 
+            render(gl, allObjects);
+            resetInput();
+        }
 
-                    render(gl, allObjects);
-                    resetInput();
- 
-             }
-        
         if (!enoughVertex) {
             addCurrentVertex(event);
             clicks += 1;
-        } else if(!squareVertex && !rectangleVertex) {
+        } else if (!squareVertex && !rectangleVertex) {
             addCurrentVertex(event);
 
             const newObject = createObject(shapeType, polygonEdges, vertices, shapeColor);
             allObjects.push(newObject);
-            // console.log(vertices)
-            // console.log(newObject)
-            if (allObjects){
-                console.log(allObjects)
-            }
             render(gl, allObjects);
             resetInput();
         }
     };
 
     const handleChangeColor = (event) => {
-        // resetInput();
         const cursorPosition = getCursorPosition(event);
         changeColor(cursorPosition);
 
@@ -301,15 +320,15 @@ const main = () => {
         a.click();
         URL.revokeObjectURL(a.href);
     };
-    
+
     const loadData = (event) => {
         const file = event.target.files[0];
         var reader = new FileReader();
         reader.addEventListener("load", function (event) {
-          let data = event.target.result;
-          data = JSON.parse(data);
-          allObjects.push(...data);
-          render(gl, allObjects);
+            let data = event.target.result;
+            data = JSON.parse(data);
+            allObjects.push(...data);
+            render(gl, allObjects);
         });
         reader.readAsBinaryString(file);
     };

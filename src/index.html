@@ -21,58 +21,91 @@
             <div class="canvas-container">
                 <canvas id="canvas" width="1024" height="570"></canvas>
             </div>
-            <div class="controller-container">
-                <h2>Controllers</h2>
+            <div class="controller-container" style="height: fit-content;">
+                <h2>Controllers and Manuals</h2>
                 <hr />
-                <div class="controller">
-                    <h6>Input Modes</h6>
-                    <select id="input-modes">
-                        <option value="draw">Draw</option>
-                        <option value="resize">Resize</option>
-                        <option value="fill-color">Fill Color</option>
-                        <option value="move-vertex">Move Vertex</option>
-                    </select>
+                <div style="display: flex;">
+                    <div style="width:14vw;">
+                        <div class="controller">
+                            <h6>Input Modes</h6>
+                            <select id="input-modes">
+                                <option value="draw">Draw</option>
+                                <option value="resize">Resize</option>
+                                <option value="fill-color">Fill Color</option>
+                                <option value="move-vertex">Move Vertex</option>
+                            </select>
+                        </div>
+                        <div class="controller">
+                            <h6>Shape Types</h6>
+                            <select id="shape-types">
+                                <option value="line">Line</option>
+                                <option value="square">Square</option>
+                                <option value="rectangle">Rectangle</option>
+                                <option value="polygon">Polygon</option>
+                            </select>
+                        </div>
+                        <div class="controller">
+                            <h6>Shape Colors</h6>
+                            <select id="shape-colors">
+                                <option value="black">Black</option>
+                                <option value="red">Red</option>
+                                <option value="green">Green</option>
+                                <option value="blue">Blue</option>
+                                <option value="cyan">Cyan</option>
+                                <option value="magenta">Magenta</option>
+                                <option value="yellow">Yellow</option>
+                            </select>
+                        </div>
+                        <div class="controller">
+                            <h6>Size Scaler</h6>
+                            <span><b>-</b></span>
+                                <input type="range" name="size-scaler" id="size-scaler" min="1" max="200" disabled/>
+                            <span><b>+</b></span>
+                        </div>
+                        <div class="controller">
+                            <h6>Polygon Edges</h6>
+                            <input type="number" id="polygon-edges" value="1" disabled="true"></input>
+                        </div>
+                        <button id="save-btn">Save Data</button>
+                        <h6><br>Load Data</h6>
+                        <input
+                            class="form-control form-control-sm"
+                            type="file"
+                            id="load-btn"
+                            accept=".json,application/json"
+                            style="color:transparent"
+                        />
+                    </div>
+                    <hr style="height: 67vh; padding: 0;">
+                    <div style="width: 14vw; padding-left: 10px;">
+                        <div>
+                            <h6>Drawing</h6>
+                            <p>Choose the <strong>Draw</strong> mode in the <strong>Input Modes</strong> dropdown.</p>
+                            <p>Choose the shape you want to draw in  <strong>Shape Types</strong> dropdown.</p>
+                            <p>For <strong>line</strong>, just click on the canvas twice. For polygons, click on the canvas as many as the number of edges of the polygon. Else, just click once on the canvas, and you can also change the initial size of the object.</p>
+                        </div>
+                        <div>
+                            <h6>Resizing</h6>
+                            <p>Choose the <strong>Resize</strong> mode.</p>
+                            <p>Select the object you want to resize, and adjust the size by the <strong>Size Scaler</strong> slider </p>
+                        </div>
+                        <div>
+                            <h6>Moving Vertex</h6>
+                            <p>Choose the <strong>Move Vertex</strong> mode.</p>
+                            <p>Select one vertex you want to move, and move the cursor to the desired position.</p>
+                            <p>Click on the target position to apply the changes.</p>
+                        </div>
+                        <div>
+                            <h6>Filling Color</h6>
+                            <p>Choose the <strong>Fill Color</strong> mode and choose any color in <strong>Shape Colors</strong> dropdown.</p>
+                            <p>Select the object you want to apply the color on.</p>
+                        </div>
+                        <div>
+                            <h6>Saving and Loading Models</h6>
+                            <p>Click either one of the button, and then just do steps as saving or uploading files as usual (JSON format).</p>
+                        </div>
+                    </div>
                 </div>
-                <div class="controller">
-                    <h6>Shape Types</h6>
-                    <select id="shape-types">
-                        <option value="line">Line</option>
-                        <option value="square">Square</option>
-                        <option value="rectangle">Rectangle</option>
-                        <option value="polygon">Polygon</option>
-                    </select>
-                </div>
-                <div class="controller">
-                    <h6>Shape Colors</h6>
-                    <select id="shape-colors">
-                        <option value="black">Black</option>
-                        <option value="red">Red</option>
-                        <option value="green">Green</option>
-                        <option value="blue">Blue</option>
-                        <option value="cyan">Cyan</option>
-                        <option value="magenta">Magenta</option>
-                        <option value="yellow">Yellow</option>
-                    </select>
-                </div>
-                <div class="controller">
-                    <h6>Size Scaler</h6>
-                    <span><b>-</b></span>
-                        <input type="range" name="size-scaler" id="size-scaler" min="1" max="200" disabled/>
-                    <span><b>+</b></span>
-                </div>
-                <div class="controller">
-                    <h6>Polygon Edges</h6>
-                    <input type="number" id="polygon-edges" value="1" disabled="true"></input>
-                </div>
-                <button id="save-btn">Save Data</button>
-                <h6><br>Load Data</h6>
-                <input
-                    class="form-control form-control-sm"
-                    type="file"
-                    id="load-btn"
-                    accept=".json,application/json"
-                    style="color:transparent"
-                />
             </div>
         </div>
         <script src="./data/data.js"></script>

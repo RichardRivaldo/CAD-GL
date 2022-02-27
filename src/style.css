@@ -60,3 +60,7 @@ input[type="file"]::-webkit-file-upload-button {
     font-weight: 700;
     cursor: pointer;
 }
+
+p {
+    font-size: x-small;
+}
