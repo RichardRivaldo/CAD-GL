@@ -134,10 +134,10 @@ const main = () => {
         if (allObjects[selectedObject].shape === "square") {
             // Find center point of object
             const currentVertices = allObjects[selectedObject].vertices;
-            var xmax = -1;
-            var ymax = -1;
-            var xmin = 1;
-            var ymin = 1;
+            var xmax = currentVertices[0];
+            var ymax = currentVertices[1];
+            var xmin = currentVertices[9];
+            var ymin = currentVertices[10];
             for (i = 0; i < currentVertices.length; i+=3) {
                 if (currentVertices[i] > xmax) xmax = currentVertices[i];
                 if (currentVertices[i] < xmin) xmin = currentVertices[i];
@@ -155,10 +155,10 @@ const main = () => {
         if (allObjects[selectedObject].shape === "rectangle") {
             // Find center point of object
             const currentVertices = allObjects[selectedObject].vertices;
-            var xmax = -1;
-            var ymax = -1;
-            var xmin = 1;
-            var ymin = 1;
+            var xmax = currentVertices[0];
+            var ymax = currentVertices[1];
+            var xmin = currentVertices[9];
+            var ymin = currentVertices[10];
             for (i = 0; i < currentVertices.length; i+=3) {
                 if (currentVertices[i] > xmax) xmax = currentVertices[i];
                 if (currentVertices[i] < xmin) xmin = currentVertices[i];
@@ -172,6 +172,13 @@ const main = () => {
                 allObjects[selectedObject].vertices[i] = xmid + size * (currentVertices[i] - xmid);
                 allObjects[selectedObject].vertices[i+1] = ymid + size * (currentVertices[i+1] - ymid);
             }
+            //  size = getElementValue(sizeScaler) / 100;
+            //  vertices = [
+            //      x1+size*0.53, y1, 0, // ini tetep
+            //      x1, y1,0,
+            //      x1+size*0.53, y1-size,0,
+            //      x1, y1-size,0
+            //  ]
         }
 
         // Render and reset input value
@@ -214,11 +221,6 @@ const main = () => {
                         x1+size*0.53, y1-size,0,
                         x1, y1-size,0
                     ]
-
-                    // for (let i = 0; i < 15; i++) {
-                    //     const newObject = createObject(shapeType, polygonEdges, vertices, shapeColor);
-                    //     allObjects.push(newObject);
-                    //   }
                       console.log(vertices)
                     //   clicks = 0
              }
@@ -237,11 +239,6 @@ const main = () => {
                         x1+size, y1-size,0,
                         x1, y1-size,0
                     ]
-
-                    // for (let i = 0; i < 15; i++) {
-                    //     const newObject = createObject(shapeType, polygonEdges, vertices, shapeColor);
-                    //     allObjects.push(newObject);
-                    //   }
                       console.log(vertices)
                     //   clicks = 0
              }
