@@ -138,9 +138,9 @@ const main = () => {
             var y1 = currentVertices[4];
     
             allObjects[selectedObject].vertices = [
-                 x1+size, y1, 0, // ini tetep
+                 x1+size*0.53, y1, 0, // ini tetep
                  x1, y1,0,
-                 x1+size, y1-size,0,
+                 x1+size*0.53, y1-size,0,
                  x1, y1-size,0
              ]
             
@@ -152,9 +152,9 @@ const main = () => {
             var y1 = currentVertices[4];
     
             allObjects[selectedObject].vertices = [
-                 x1+size*0.53, y1, 0, // ini tetep
+                 x1+size, y1, 0, // ini tetep
                  x1, y1,0,
-                 x1+size*0.53, y1-size,0,
+                 x1+size, y1-size,0,
                  x1, y1-size,0
              ]
         }
