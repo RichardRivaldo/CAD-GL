@@ -132,53 +132,31 @@ const main = () => {
             }
         }
         if (allObjects[selectedObject].shape === "square") {
-            // Find center point of object
+            // Find x, y original position
             const currentVertices = allObjects[selectedObject].vertices;
-            var xmax = currentVertices[0];
-            var ymax = currentVertices[1];
-            var xmin = currentVertices[9];
-            var ymin = currentVertices[10];
-            for (i = 0; i < currentVertices.length; i+=3) {
-                if (currentVertices[i] > xmax) xmax = currentVertices[i];
-                if (currentVertices[i] < xmin) xmin = currentVertices[i];
-                if (currentVertices[i+1] > ymax) ymax = currentVertices[i+1];
-                if (currentVertices[i+1] < ymin) ymin = currentVertices[i+1];
-            }
-            xmid = xmin + 0.5 * (xmax - xmin);
-            ymid = xmin + 0.5 * (xmax - xmin);
-            // Scale each vertice according to center point
-            for (i = 0; i < currentVertices.length; i+=3) {
-                allObjects[selectedObject].vertices[i] = xmid + size * (currentVertices[i] - xmid);
-                allObjects[selectedObject].vertices[i+1] = ymid + size * (currentVertices[i+1] - ymid);
-            }
+            var x1 = currentVertices[3];
+            var y1 = currentVertices[4];
+    
+            allObjects[selectedObject].vertices = [
+                 x1+size*0.53, y1, 0, // ini tetep
+                 x1, y1,0,
+                 x1+size*0.53, y1-size,0,
+                 x1, y1-size,0
+             ]
+            
         }
         if (allObjects[selectedObject].shape === "rectangle") {
-            // Find center point of object
+            // Find x, y original positon
             const currentVertices = allObjects[selectedObject].vertices;
-            var xmax = currentVertices[0];
-            var ymax = currentVertices[1];
-            var xmin = currentVertices[9];
-            var ymin = currentVertices[10];
-            for (i = 0; i < currentVertices.length; i+=3) {
-                if (currentVertices[i] > xmax) xmax = currentVertices[i];
-                if (currentVertices[i] < xmin) xmin = currentVertices[i];
-                if (currentVertices[i+1] > ymax) ymax = currentVertices[i+1];
-                if (currentVertices[i+1] < ymin) ymin = currentVertices[i+1];
-            }
-            xmid = xmin + 0.5 * (xmax - xmin);
-            ymid = xmin + 0.5 * (xmax - xmin);
-            // Scale each vertice according to center point
-            for (i = 0; i < currentVertices.length; i+=3) {
-                allObjects[selectedObject].vertices[i] = xmid + size * (currentVertices[i] - xmid);
-                allObjects[selectedObject].vertices[i+1] = ymid + size * (currentVertices[i+1] - ymid);
-            }
-            //  size = getElementValue(sizeScaler) / 100;
-            //  vertices = [
-            //      x1+size*0.53, y1, 0, // ini tetep
-            //      x1, y1,0,
-            //      x1+size*0.53, y1-size,0,
-            //      x1, y1-size,0
-            //  ]
+            var x1 = currentVertices[3];
+            var y1 = currentVertices[4];
+    
+            allObjects[selectedObject].vertices = [
+                 x1+size*0.53, y1, 0, // ini tetep
+                 x1, y1,0,
+                 x1+size*0.53, y1-size,0,
+                 x1, y1-size,0
+             ]
         }
 
         // Render and reset input value
